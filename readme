@@ -1,0 +1,27 @@
+模块版本
+scrapy  1.4
+创建 scrapy 工程命令如下
+第一步
+    创建爬虫项目
+    scrapy startproject gftsearch
+第二步
+    启动爬虫任务
+    scrapy crawl quotes
+第三步
+    scrapy shell 用法
+    scrapy shell "http://quotes.toscrape.com/page/1/"
+第四步
+    scrapy crawl quotes -o quotes.json 输出结果以json 保存 （历史原因第二次运行是追加 ，建议用完后删除（或者清空）这个文件）
+第五步
+    scrapy crawl quotes -o quotes.jl 使用json lines （可以运行多次不用担心json 文件损坏）
+        The JSON Lines format is useful because it’s stream-like, you can easily append new records to it. It doesn’t have           the same problem of JSON when you run twice. Also, as each record is a separate line, you can process big files               without having to fit everything in memory, there are tools like JQ to help doing that at the command-line.
+     注释：
+        第四步，第五步 强烈建议使用 pipeline（scrapy）
+
+第六步
+    递归查询下一页
+     yield response.follow(next_page, callback=self.parse)
+     第二种
+      yield scrapy.Request(next_page, callback=self.parse)
+第七步：
+    conda install pymsql
